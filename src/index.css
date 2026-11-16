@@ -1,0 +1,67 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-bg: #0d0f14;
+  --color-surface: #161922;
+  --color-raised: #1f232e;
+  --color-line: #2a2f3c;
+  --color-ink: #e8eaf0;
+  --color-mute: #949bab;
+  --color-accent: #ffb020;
+  --color-danger: #ff6b6b;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html,
+body {
+  /* No browser pull-to-refresh or overscroll navigation: the app has its own gestures. */
+  overscroll-behavior: none;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Keeps long lists (100+ cards) smooth: off-screen cards are not laid out or painted. */
+.paper-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 104px;
+}
+
+.scroll-area {
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.stream-cursor::after {
+  content: '▍';
+  margin-left: 2px;
+  color: var(--color-accent);
+  animation: blink 1s steps(1) infinite;
+}
