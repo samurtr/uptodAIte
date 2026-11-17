@@ -1,11 +1,17 @@
+/// <reference types="node" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
+// Path the app is served from. The GitHub Pages workflow sets BASE_PATH from
+// actions/configure-pages (e.g. "/uptodaite" for a project site, "" for a user
+// site or custom domain); locally it is "/".
+const basePath = (process.env.BASE_PATH ?? '').replace(/^\/+|\/+$/g, '');
+const base = basePath ? `/${basePath}/` : '/';
+
 export default defineConfig({
-  // Relative base so the static build works from any path (e.g. GitHub Pages).
-  base: './',
+  base,
   plugins: [
     react(),
     tailwindcss(),
@@ -19,8 +25,9 @@ export default defineConfig({
         lang: 'en',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '.',
-        scope: '.',
+        id: base,
+        start_url: base,
+        scope: base,
         theme_color: '#0d0f14',
         background_color: '#0d0f14',
         icons: [
